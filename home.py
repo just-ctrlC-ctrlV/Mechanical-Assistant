@@ -2,6 +2,11 @@ import streamlit as st
 from transformers import pipeline
 import os
 import dotenv
+from llamaindex.loading_data import load_documents
+from llamaindex.indexing import load_index, create_index
+from llamaindex.llm import connect_llm
+from llamaindex.querying import query_index
+
 
 # Configuring env variables
 dotenv.load_dotenv()
@@ -15,6 +20,12 @@ db_env = os.getenv("DB_ENV")
 db_region = os.getenv("DB_REGION")
 
 
+# Llamaindex Configuration
+docs = load_documents("")
+index = load_index(pinecone_api_key, db_index_name)
+llm = connect_llm(llama_api_key)
+
+
 # --------------------------------- Streamlit configuration --------------------------------- #
 # Title and introduction
 st.title("Your Personal Assistant")
@@ -24,7 +35,9 @@ st.write("Ask me anything and I'll try my best to answer!")
 user_query = st.text_input("What's on your mind?", key="query")
 
 # Display user query
-st.write("You asked:", user_query)
+# st.write("You asked:", user_query)
+response = query_index(index, user_query, llm)
+st.Write("Answer :\n", response)
 
 # Load pipeline for question answering (replace with desired task)
 qa_pipeline = pipeline("question-answering")
