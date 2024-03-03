@@ -1,6 +1,21 @@
 import streamlit as st
 from transformers import pipeline
+import os
+import dotenv
 
+# Configuring env variables
+dotenv.load_dotenv()
+
+llama_api_key = os.getenv("LLAMAAPI")
+pinecone_api_key = os.getenv("PINECONE_API_KEY")
+db_dimension = os.getenv("DB_DIMENSION")
+db_index_name = os.getenv("DB_INDEX_NAME")
+db_metric = os.getenv("DB_METRIC")
+db_env = os.getenv("DB_ENV")
+db_region = os.getenv("DB_REGION")
+
+
+# --------------------------------- Streamlit configuration --------------------------------- #
 # Title and introduction
 st.title("Your Personal Assistant")
 st.write("Ask me anything and I'll try my best to answer!")
