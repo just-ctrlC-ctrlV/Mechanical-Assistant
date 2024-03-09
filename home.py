@@ -32,7 +32,6 @@ db_index_name = os.getenv("DB_INDEX_NAME")
 db_metric = os.getenv("DB_METRIC")
 db_env = os.getenv("DB_ENV")
 db_region = os.getenv("DB_REGION")
-# PINECONE_API_KEY=8df36291-9b0f-4081-95fc-3d4dbe03b6ff
 
 # Llamaindex Configuration
 # docs = load_documents("")
