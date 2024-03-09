@@ -22,7 +22,7 @@ dotenv.load_dotenv()
 
 llama_api_key = os.getenv("LLAMAAPI")
 hf_api_key = os.getenv("HUGGING_FACE_TOKEN")
-pinecone_api_key = os.getenv("PINECONE_API_KEY")
+# pinecone_api_key = os.getenv("PINECONE_API_KEY")
 db_dimension = os.getenv("DB_DIMENSION")
 db_index_name = os.getenv("DB_INDEX_NAME")
 db_metric = os.getenv("DB_METRIC")
@@ -42,7 +42,7 @@ def load_index(db_index_name):
         VectorStoreIndex: The loaded index.
     """
 
-    pc = Pinecone(api_key=pinecone_api_key)
+    pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
     pinecone_index = pc.Index(db_index_name)
     pinecone_vector_store = PineconeVectorStore(pinecone_index=pinecone_index)
     storage_context = StorageContext.from_defaults(vector_store=pinecone_vector_store)
@@ -70,7 +70,7 @@ def create_index(db_index_name, all_docs):
         VectorStoreIndex: The created index.
     """
 
-    pc = Pinecone(api_key=pinecone_api_key)
+    pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
     pinecone_index = pc.Index(db_index_name)
     pinecone_vector_store = PineconeVectorStore(pinecone_index=pinecone_index)
     storage_context = StorageContext.from_defaults(vector_store=pinecone_vector_store)
@@ -85,7 +85,7 @@ def create_index(db_index_name, all_docs):
 
 
 def upsert_data(pinecone_api_key, db_index_name, docs):
-    pc = Pinecone(api_key=pinecone_api_key)
+    pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
     pinecone_index = pc.Index(db_index_name)
 
     # documents = SimpleDirectoryReader("/content/data").load_data()

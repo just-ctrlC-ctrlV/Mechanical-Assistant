@@ -21,7 +21,7 @@ dotenv.load_dotenv()
 
 llama_api_key = os.getenv("LLAMAAPI")
 hf_api_key = os.getenv("HUGGING_FACE_TOKEN")
-pinecone_api_key = os.getenv("PINECONE_API_KEY")
+# pinecone_api_key = os.getenv("PINECONE_API_KEY")
 db_dimension = os.getenv("DB_DIMENSION")
 db_index_name = os.getenv("DB_INDEX_NAME")
 db_metric = os.getenv("DB_METRIC")
