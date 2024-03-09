@@ -15,7 +15,7 @@ from llama_index.core import StorageContext
 from llama_index.core import PromptTemplate
 from llama_index.llms.llama_api import LlamaAPI
 from llamaindex.loading_data import load_documents
-from llamaindex.indexing import load_index, create_index
+from llamaindex.indexing import load_index, create_index, upsert_data
 from llamaindex.llm import connect_llm
 from llamaindex.querying import query_index
 from llamaindex.embeddings import set_emebed_model
@@ -32,17 +32,17 @@ db_index_name = os.getenv("DB_INDEX_NAME")
 db_metric = os.getenv("DB_METRIC")
 db_env = os.getenv("DB_ENV")
 db_region = os.getenv("DB_REGION")
-
+# PINECONE_API_KEY=8df36291-9b0f-4081-95fc-3d4dbe03b6ff
 
 # Llamaindex Configuration
 # docs = load_documents("")
-set_emebed_model(hf_api_key)
-llm = connect_llm(llama_api_key)
+set_emebed_model()
+llm = connect_llm()
 
-docs = load_documents("./book")
-index = create_index(pinecone_api_key, "bakchodi", docs)
+# docs = load_documents("./book")
+# upsert_data(pinecone_api_key, db_index_name, docs)
 
-# index = load_index(pinecone_api_key, db_index_name)
+index = load_index(db_index_name)
 
 
 # --------------------------------- Streamlit configuration --------------------------------- #
