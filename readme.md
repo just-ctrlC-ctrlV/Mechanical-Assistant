@@ -1,4 +1,4 @@
-# Mechanical Assistant Repository
+# Mechanical Assistant 👩‍🔧
 
 This repository serves as a codebase for a mechanical assistant powered by LLAMA LLM which is implemented using RAG. The assistant utilizes Llamaindex and Streamlit for its functionality.
 
@@ -26,7 +26,7 @@ The main aim of this repository is to provide a mechanical assistant application
 1. Clone this repository:
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/just-ctrlC-ctrlV/Mechanical-Assistant.git
    ```
 
 2. Install the required dependencies:
