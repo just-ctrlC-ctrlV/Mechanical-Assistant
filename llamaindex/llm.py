@@ -12,15 +12,30 @@ from llama_index.core import StorageContext
 from llama_index.core import PromptTemplate
 from llama_index.llms.llama_api import LlamaAPI
 from llama_index.core import Settings
+import os
+import dotenv
 
 
-def connect_llm(api_key):
+# Configuring env variasbles
+dotenv.load_dotenv()
+
+llama_api_key = os.getenv("LLAMAAPI")
+hf_api_key = os.getenv("HUGGING_FACE_TOKEN")
+# pinecone_api_key = os.getenv("PINECONE_API_KEY")
+db_dimension = os.getenv("DB_DIMENSION")
+db_index_name = os.getenv("DB_INDEX_NAME")
+db_metric = os.getenv("DB_METRIC")
+db_env = os.getenv("DB_ENV")
+db_region = os.getenv("DB_REGION")
+
+
+def connect_llm():
     """Connects to the Llama language model.
 
     Args:
         api_key (str): API key for Llama.
     """
 
-    llm = LlamaAPI(api_key=api_key)
+    llm = LlamaAPI(api_key=llama_api_key)
     Settings.llm = llm
     return llm
