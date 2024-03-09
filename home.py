@@ -44,41 +44,48 @@ llm = connect_llm()
 
 index = load_index(db_index_name)
 
-
 # --------------------------------- Streamlit configuration --------------------------------- #
+st.set_page_config(
+    page_title="Mech Assistant",
+    page_icon="👩‍🔧",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    menu_items={
+        'Get Help': 'https://www.extremelycoolapp.com/help',
+        'Report a bug': "https://www.extremelycoolapp.com/bug",
+        'About': "# This is a header. This is an *extremely* cool app!"
+    }
+)
+
+st.sidebar.title("Select functionality")
+selected_option = st.sidebar.selectbox("Choose an option", ("Question Answering", "Summarization", "More (coming soon)"), key="option")
+
+
 # Title and introduction
-st.title("Your Personal Assistant")
-st.write("Ask me anything and I'll try my best to answer!")
+st.markdown("""
+    <h2 style="text-align: center; color: white; font-size: 3em">Your Mechanical Assistant 👩‍🔧</h2>
+""", unsafe_allow_html=True) 
+st.markdown("""
+    <h4 style="text-align: center; color: #333; padding-bottom: 2.5em">Ask me anything and I'll try my best to answer!</h4>
+""", unsafe_allow_html=True)  # Style based on selected theme
+
 
 # Text input for user query
-user_query = st.text_input("What's on your mind?", key="query")
-print("User query :", user_query)
+user_query = st.text_input("What's on your fucking mind?", key="query")
 if (user_query == ""):
   pass
 else:
   print("betichod")
   resp = query_index(index, user_query, llm)
   st.write(resp.response)
-  
-print("\n")
-# print("Answer :", type(resp.response))
 
 
-
-# Additional features
-# - Sidebar for selecting different functionalities (e.g., question answering, summarization)
-st.sidebar.title("Select functionality")
-selected_option = st.sidebar.selectbox("Choose an option", ("Question Answering", "Summarization", "More (coming soon)"), key="option")
-
-# - Implement logic based on user selection
 if selected_option == "Question Answering":
-  # Functionality already implemented
   pass
 elif selected_option == "Summarization":
-  # Implement summarization logic using libraries like transformers
   st.write("Summarization functionality is under development.")
 else:
   st.write("Stay tuned for more features in the future!")
 
-# Display footer
-st.write("Made with Streamlit")
+
+st.write("<p style='text-align: center; color: #888'>No copyright issue</p>", unsafe_allow_html=True)

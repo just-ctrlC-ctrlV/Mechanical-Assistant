@@ -30,7 +30,7 @@ def query_index(index, query, llm):
         "---------------------\n"
         "{context_str}\n"
         "---------------------\n"
-        "Use the context information if the user query is related to it, else use your prior knowledge to answer user query. Only give the answer, dont write anything else"
+        "Use the context information only to answer user query and mathematical expression should be in LaTeX format using $$ and $$ delimiters. Only give the answer, dont write anything else"
         "Query: {query_str}\n"
         "Answer: "
     )
