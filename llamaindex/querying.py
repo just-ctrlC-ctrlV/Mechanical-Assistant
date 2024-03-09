@@ -25,6 +25,7 @@ def query_index(index, query, llm):
         dict: The query response.
     """
     
+    # Define a prompt template for question answering
     qa_prompt_tmpl_str = (
         "Context information is below.\n"
         "---------------------\n"
@@ -36,8 +37,9 @@ def query_index(index, query, llm):
     )
     qa_prompt_tmpl = PromptTemplate(qa_prompt_tmpl_str)
     
-    print("Hello bsdwaalon")
+    # Initialize a query engine with the index and LLAMA model
     query_engine = index.as_query_engine(text_qa_template=qa_prompt_tmpl, llm=llm)
+    
+    # Perform the query
     response = query_engine.query(query)
-    print("Response :", response)
     return response
