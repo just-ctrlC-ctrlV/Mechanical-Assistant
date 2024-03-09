@@ -20,22 +20,11 @@ import dotenv
 # Configuring env variasbles
 dotenv.load_dotenv()
 
-llama_api_key = os.getenv("LLAMAAPI")
-hf_api_key = os.getenv("HUGGING_FACE_TOKEN")
-# pinecone_api_key = os.getenv("PINECONE_API_KEY")
-db_dimension = os.getenv("DB_DIMENSION")
-db_index_name = os.getenv("DB_INDEX_NAME")
-db_metric = os.getenv("DB_METRIC")
-db_env = os.getenv("DB_ENV")
-db_region = os.getenv("DB_REGION")
-
-
 
 def load_index(db_index_name):
     """Loads a VectorStoreIndex from Pinecone.
 
     Args:
-        pinecone_api_key (str): API key for Pinecone.
         db_index_name (str): Name of the Pinecone index.
 
     Returns:
@@ -59,15 +48,14 @@ def load_index(db_index_name):
 
 
 def create_index(db_index_name, all_docs):
-    """Create a VectorStoreIndex from Pinecone.
+    """Loads a VectorStoreIndex from Pinecone.
 
     Args:
-        pinecone_api_key (str): API key for Pinecone.
         db_index_name (str): Name of the Pinecone index.
         all_docs : Array of docs to be stored in Pinecone index.
 
     Returns:
-        VectorStoreIndex: The created index.
+        VectorStoreIndex: The loaded index.
     """
 
     pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
@@ -84,7 +72,13 @@ def create_index(db_index_name, all_docs):
     return index
 
 
-def upsert_data(pinecone_api_key, db_index_name, docs):
+def upsert_data(db_index_name, docs):
+    """Upsert data to VectorStore from Pinecone. 
+
+    Args:
+        db_index_name (str): Name of the Pinecone index.
+        docs : Array of docs to be stored in Pinecone index.
+    """
     pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
     pinecone_index = pc.Index(db_index_name)
 

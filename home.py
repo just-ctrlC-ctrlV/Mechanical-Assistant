@@ -56,6 +56,7 @@ st.set_page_config(
     }
 )
 
+# Sidebar selection
 st.sidebar.title("Select functionality")
 selected_option = st.sidebar.selectbox("Choose an option", ("Question Answering", "Summarization", "More (coming soon)"), key="option")
 
@@ -69,16 +70,16 @@ st.markdown("""
 """, unsafe_allow_html=True)  # Style based on selected theme
 
 
-# Text input for user query
+# User query input
 user_query = st.text_input("What's on your fucking mind?", key="query")
 if (user_query == ""):
   pass
 else:
-  print("betichod")
   resp = query_index(index, user_query, llm)
   st.write(resp.response)
 
 
+# Functionality selection
 if selected_option == "Question Answering":
   pass
 elif selected_option == "Summarization":
