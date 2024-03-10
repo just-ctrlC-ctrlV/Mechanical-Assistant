@@ -21,6 +21,10 @@ Mechanical-Assistant/
 
 The main aim of this repository is to provide a mechanical assistant application that can assist users with various tasks such as question answering and summarization realted to mechanical engineering. It leverages the LLAMA LLM model and RAG implementation for its core functionality.
 
+https://github.com/just-ctrlC-ctrlV/Mechanical-Assistant/assets/108853577/fa56e0f3-e1e0-4f3a-879f-b74c5eb3188c
+
+
+
 ## Setup
 
 1. Clone this repository:
