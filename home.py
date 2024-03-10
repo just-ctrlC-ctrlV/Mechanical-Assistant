@@ -19,6 +19,10 @@ from llamaindex.indexing import load_index, create_index, upsert_data
 from llamaindex.llm import connect_llm
 from llamaindex.querying import query_index
 from llamaindex.embeddings import set_emebed_model
+from streamlit_chat import message
+from public.urls.gear_url import GEAR_URL
+from public.urls.fire_url import FIRE_URL
+from public.urls.gear1_url import GEAR1_URL
 
 
 # Configuring env variables
@@ -43,6 +47,9 @@ llm = connect_llm()
 
 index = load_index(db_index_name)
 
+
+HUG = 'https://em-content.zobj.net/source/microsoft-teams/363/hugging-face_1f917.png'
+ANGRY = 'https://em-content.zobj.net/source/microsoft-teams/363/pouting-face_1f621.png'
 # --------------------------------- Streamlit configuration --------------------------------- #
 st.set_page_config(
     page_title="Mech Assistant",
@@ -70,13 +77,36 @@ st.markdown("""
 """, unsafe_allow_html=True)  # Style based on selected theme
 
 
-# User query input
-user_query = st.text_input("What's on your fucking mind?", key="query")
+st.session_state.value = ''
+placeholder = st.empty()
+if "question_history" not in st.session_state:
+  st.session_state.question_history = []
+if "answer_history" not in st.session_state:
+  st.session_state.answer_history = []
+
+user_query = st.text_input("", key="text", value=st.session_state.value)
+st.session_state.question_history.append(user_query)
 if (user_query == ""):
+  st.session_state.answer_history.append("")
   pass
 else:
   resp = query_index(index, user_query, llm)
-  st.write(resp.response)
+  st.session_state.answer_history.append(resp.response)
+  user_query = ""
+  st.session_state.value = ''
+  # message(resp.response, is_user=False, logo=GEAR_URL)
+  # query = st.text_input("")
+  # st.session_state["text"] = ""
+  
+n = len(st.session_state.question_history)
+for i in range(n):
+  if st.session_state.question_history[n-1-i] != "":
+    message(st.session_state.question_history[n-1-i], is_user=True, logo=FIRE_URL) # display all the previous questions
+  if st.session_state.answer_history[n-1-i] != "":
+    message(st.session_state.answer_history[n-1-i], is_user=False, logo=GEAR1_URL) # display all the previous answers
+# with placeholder.container():
+#   message(st.session_state.question_history[-1], is_user=True) # display the latest message
+
 
 
 # Functionality selection
